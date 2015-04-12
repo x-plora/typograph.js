@@ -1,5 +1,8 @@
 //
-// Typograph.js by Kirill Chugreev 2015
+// Typograph.js v0.1 2015
+//
+// programmer - Kirill Chugreev
+// artistic director - Sergey Chikin
 //
 if (window.jQuery) {
     $(document).ready(function () {
