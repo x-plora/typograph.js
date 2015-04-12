@@ -4,17 +4,17 @@
 To use typograph.js you need to have jQuery on your page.
 ## How to use
 Include typograph.css in head of your page.
-```
-    <link type="text/css" rel="stylesheet" href="/css/typograph.css">
+```html
+<link type="text/css" rel="stylesheet" href="/css/typograph.css">
 ```
 
 Include typograph.js after jQuery on your page.
-```
-    <script src="/js/typograph.js"></script>
+```html
+<script src="/js/typograph.js"></script>
 ```
 
 Add 'do_typography' class to tag (tags) on your page that need to be processed.
-```
+```html
 <p class='do_typography'>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. "Quisque" interdum tempus ultrices. Proin tempor lacus venenatis gravida pulvinar. 
 Donec elementum purus ac odio ornare fringilla. 'Cras rutrum', dui ac molestie ultricies, sem mi bibendum mauris, sed interdum ex ligula eu lacus. 
