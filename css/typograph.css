@@ -1,0 +1,73 @@
+span.typograph_sbrace {
+    margin-right: 0.32em
+}
+
+span.typograph_hbrace {
+    margin-left: -0.32em
+}
+
+span.typograph_squot {
+    margin-right: 0.20em
+}
+
+span.typograph_hquot {
+    margin-left: -0.20em
+}
+
+span.typograph_sdquot {
+    margin-right: 0.35em
+}
+
+span.typograph_hdquot {
+    margin-left: -0.35em
+}
+
+span.typograph_slaquot {
+    margin-right: 0.56em
+}
+
+span.typograph_hlaquot {
+    margin-left: -0.56em
+}
+
+span.typograph_slquot {
+    margin-right: 0.32em
+}
+
+span.typograph_hlquot {
+    margin-left: -0.32em
+}
+
+span.typograph_splus {
+    margin-right: 0.18em
+}
+
+span.typograph_hplus {
+    margin-left: -0.18em
+}
+
+span.typograph_sasterisk {
+    margin-right: 0.40em
+}
+
+span.typograph_hasterisk {
+    margin-left: -0.40em
+}
+
+span.typograph_capitel {
+    font-size: 0.8em;
+    letter-spacing: 0.09em;
+}
+
+span.typograph_halfspace {
+    letter-spacing: -0.2em;
+}
+
+span.typograph_thsep {
+    display: inline-block;
+    width: 0.16em;
+}
+
+span.typograph_nobreak {
+    white-space: nowrap;
+}

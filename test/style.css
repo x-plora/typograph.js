@@ -1,0 +1,12 @@
+body {
+    font-family: sans-serif;
+}
+
+.div {
+    width: 325px;
+    padding: 0;
+    margin: 10px;
+    border-left: solid 1px red;
+
+}
+
