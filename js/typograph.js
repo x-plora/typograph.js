@@ -1,3 +1,6 @@
+//
+// Typograph.js by Kirill Chugreev 2015
+//
 if (window.jQuery) {
     $(document).ready(function () {
         $('.do_typography').each(function () {
