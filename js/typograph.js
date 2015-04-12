@@ -1,6 +1,6 @@
 if (window.jQuery) {
     $(document).ready(function () {
-        $('.typo').each(function () {
+        $('.do_typography').each(function () {
             $(this).each(function () {
                 htmlreplace($(this));
                 function htmlreplace(element) {
@@ -47,5 +47,5 @@ if (window.jQuery) {
         });
     });
 } else {
-    console.log('Typograph: no jQuery, can not work');
+    console.log('Typograph.js: no jQuery, can not work');
 }
