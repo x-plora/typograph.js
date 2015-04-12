@@ -1,4 +1,4 @@
-# typograph.js
+# Typograph.js
 **Typograph.js** is a small script that makes typography on your pages look classy.
 ## Requirements
 To use typograph.js you need to have jQuery on your page.
