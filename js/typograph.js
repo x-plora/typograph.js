@@ -24,7 +24,7 @@ if (window.jQuery) {
             });
 
             var text = $(this).html();
-            var typos = [
+            var typographics = [
                 [/\s+\(/g, '<span class="typograph_sbrace"> </span><span class="typograph_hbrace">(</span>'],
                 [/\s+'/g, '<span class="typograph_squot"> </span><span class="typograph_hquot">\'</span>'],
                 [/\s+"/g, '<span class="typograph_sdquot"> </span><span class="typograph_hdquot">"</span>'],
@@ -40,8 +40,8 @@ if (window.jQuery) {
                 [/\.\.\./g, '…']
             ];
 
-            for (var i = 0, len = typos.length; i < len; ++i) {
-                text = text.replace(typos[i][0], typos[i][1]);
+            for (var i = 0, len = typographics.length; i < len; ++i) {
+                text = text.replace(typographics[i][0], typographics[i][1]);
             }
 
             text = text.replace(/\d{5,}/g, function (needle, offset, str) {
