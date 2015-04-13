@@ -33,7 +33,7 @@ if (window.jQuery) {
                 [/\s+\*/g, '<span class="typograph_sasterisk"> </span><span class="typograph_hasterisk">*</span>'],
                 [/\s+\+/g, '<span class="typograph_splus"> </span><span class="typograph_hplus">+</span>'],
                 [/\s+-\s+/g, ' – '],
-                [/[A-ZА-ЯЁ]{2,}/g, '<span class="typograph_capitel">$&</span>'],
+                [/(\s)([A-ZА-ЯЁ]{2,})(\s)/g, '$1<span class="typograph_capitel">$2</span>$3'],
                 [/(\s[a-zA-Zа-яА-ЯёЁ]{1,3})\s([a-zA-Zа-яА-ЯёЁ]+)/g, '$1&nbsp;$2'],
                 [/([A-ZА-ЯЁ]{1}\.)\s/g, '$1<span class="typograph_halfspace">&nbsp;</span>'],
                 [/(\d{5,})\s([a-zA-Zа-яАЯёЁ]+)/g, '$1&nbsp;$2'],
