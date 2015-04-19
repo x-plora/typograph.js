@@ -26,14 +26,24 @@ if (window.jQuery) {
             var text = $(this).html();
 
             text = text.replace(/\s[a-zA-Zа-яА-ЯёЁ]*[A-ZА-ЯЁ]{2,}[a-zA-Zа-яА-ЯёЁ]*[\s\.,:;]/g, function (needle, offset, str) {
-                return needle.replace(/[A-ZА-ЯЁ]+/g,'<span class="typograph_capitel">$&</span>');
+                return needle.replace(/[A-ZА-ЯЁ]+/g, '<span class="typograph_capitel">$&</span>');
             });
 
             var typographics = [
                 [/\([cс]\)/gi, '©'],
                 [/\([r]\)/gi, '®'],
-                [/®\s+/g,'©&nbsp;'],
-                [/\s+®/g,'&nbsp;®'],
+                [/®\s+/g, '©&nbsp;'],
+                [/\s+®/g, '&nbsp;®'],
+                [/\s+\./g, '. '],
+                [/\s+,/g, ', '],
+                [/\+-/g, '±'],
+                [/!=/g, '≠'],
+                [/~=/g, '≈'],
+                [/(<|&lt;)=/g, '≤'],
+                [/(>|&gt;)=/g, '≥'],
+                [/\s1\/2(\s|\.|,)/g, ' ½$1'],
+                [/\s1\/4(\s|\.|,)/g, ' ¼$1'],
+                [/\s3\/4(\s|\.|,)/g, ' ¾$1'],
                 [/\s+\(/g, '<span class="typograph_sbrace"> </span><span class="typograph_hbrace">(</span>'],
                 [/>\s+'/g, '><span class="typograph_hquot">\'</span>'],
                 [/\s+'/g, '<span class="typograph_squot"> </span><span class="typograph_hquot">\'</span>'],
@@ -48,10 +58,14 @@ if (window.jQuery) {
                 [/\s+–\s+/g, ' — '],
                 [/(\d+)-(\d+)/g, '$1—$2'],
                 [/(\d+)–(\d+)/g, '$1—$2'],
+                [/(\d+)x(\d+)/g, '$1×$2'],
+                [/(\d+)\^(\d+)/g, '$1<sup><small>$2</small></sup>'],
+                [/([a-zA-Zа-яА-ЯёЁ]+)-([a-zA-Zа-яА-ЯёЁ]+)/g, '<span class="typograph_nobreak">$1—$2</span>'],
+                [/([a-zA-Zа-яА-ЯёЁ]+)–([a-zA-Zа-яА-ЯёЁ]+)/g, '<span class="typograph_nobreak">$1—$2</span>'],
                 [/(\s|\(|>)(и|а|но|да|или|либо|в|из|от|до|к|перед|у|за|с)\s([a-zA-Zа-яА-ЯёЁ0-9]+|<\w+)/gi, '$1$2&nbsp;$3'],
                 [/([A-ZА-ЯЁ]{1}[a-zа-яё]?\.)\s+/g, '$1<span class="typograph_halfspace">&nbsp;</span>'],
                 [/(\d{5,})\s([a-zA-Zа-яАЯёЁ]+)/g, '$1&nbsp;$2'],
-                [/\.\.\./g, '…'],
+                [/\.{3,4}/g, '…'],
                 [/(\d+)\s+([a-zA-Zа-яА-ЯёЁ])/g, '$1&nbsp;$2'],
             ];
 
