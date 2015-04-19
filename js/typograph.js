@@ -18,7 +18,7 @@ if (window.jQuery) {
             text = text.replace(/[a-zA-ZА-яёЁ]"-/g, "$1»-").replace(/-"[a-zA-ZА-яёЁ]/g, "-«$1");
             text = text.replace(/(^[^«»]*)"/g, "$1«").replace(/"([^«»]*$)/g, "»$1").replace(/«([^«»]*)"/g, "«$1»").replace(/"([^«»]*)»/g, "«$1»");
 
-            function rl(beginPos, endPos) {//replace_leveled
+            function replaceQuotes(beginPos, endPos) {
                 var begin = "", inner, end = "";
                 if (beginPos != 0) {
                     begin = text.substring(0, beginPos);
@@ -44,7 +44,7 @@ if (window.jQuery) {
                         if (text.charAt(endCnt) == '»') {
                             --level;
                             if (level <= 0) {
-                                text = rl(beginCnt, endCnt);
+                                text = replaceQuotes(beginCnt, endCnt);
                                 beginCnt = endCnt;
                                 break;
                             }
