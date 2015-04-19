@@ -7,27 +7,54 @@
 if (window.jQuery) {
     $(document).ready(function () {
         $('.do_typography').each(function () {
-            $(this).each(function () {
-                htmlreplace($(this));
-                function htmlreplace(element) {
-                    if (!element) element = document.body;
-                    var nodes = $(element).contents().each(function () {
-                        if (this.nodeType == Node.TEXT_NODE) {
-                            var result = $(this).text().replace(/(^)\x22(\s)/gi, '$1&raquo;$2').replace(/(^|\s|\()"/gi, "$1&laquo;").replace(/"(\;|\!|\?|\:|\.|\,|$|\)|\s)/gi, "&raquo;$1")
-                            $(this).after(result).remove();
-                        } else {
-                            htmlreplace(this);
-                        }
-                        ;
-                    });
-                };
-            });
-
             var text = $(this).html();
 
             text = text.replace(/\s[a-zA-Zа-яА-ЯёЁ]*[A-ZА-ЯЁ]{2,}[a-zA-Zа-яА-ЯёЁ]*[\s\.,:;]/g, function (needle, offset, str) {
                 return needle.replace(/[A-ZА-ЯЁ]+/g, '<span class="typograph_capitel">$&</span>');
             });
+
+            // кавычки
+            text = text.replace(/(^|\n|\s|—|-|\()"/g, "$1«").replace(/"($|\n|\s|—|-|\.|,|!|\?|:|;|\))/g, "»$1").replace(/«\)/g, "»)").replace(/«( ?)/g, "«").replace(/( ?)»/g, "»").replace(/>"/g, ">«").replace(/"</g, "»<").replace(/«""/g, "«««").replace(/«"/g, "««").replace(/""»/g, "»»»").replace(/"»/g, "»»").replace(/("{2}|"»)/g, "»»").replace(/$"/g, "«").replace(/([A-Za-zа-яА-ЯёЁ])'/g, "$1’");
+            text = text.replace(/[a-zA-ZА-яёЁ]"-/g, "$1»-").replace(/-"[a-zA-ZА-яёЁ]/g, "-«$1");
+            text = text.replace(/(^[^«»]*)"/g, "$1«").replace(/"([^«»]*$)/g, "»$1").replace(/«([^«»]*)"/g, "«$1»").replace(/"([^«»]*)»/g, "«$1»");
+
+            function rl(beginPos, endPos) {//replace_leveled
+                var begin = "", inner, end = "";
+                if (beginPos != 0) {
+                    begin = text.substring(0, beginPos);
+                }
+                if (endPos != text.length - 1) {
+                    end = text.substring(endPos + 1, text.length);
+                }
+                inner = text.substring(beginPos, endPos + 1);
+                for (var i = 0; i < 32; ++i) {
+                    inner = inner.replace(/«([^«»]*)«([^»]*)»/g, "«$1„$2“");
+                }
+                return begin + inner + end;
+            };
+
+            var level = 0;
+            for (var beginCnt = 0; beginCnt < text.length; ++beginCnt) {
+                if (text.charAt(beginCnt) == '«') {
+                    ++level;
+                    for (var endCnt = beginCnt + 1; endCnt < text.length; ++endCnt) {
+                        if (text.charAt(endCnt) == '«') {
+                            ++level;
+                        }
+                        if (text.charAt(endCnt) == '»') {
+                            --level;
+                            if (level <= 0) {
+                                text = rl(beginCnt, endCnt);
+                                beginCnt = endCnt;
+                                break;
+                            }
+                        }
+                    }
+                    level = 0;
+                }
+            }
+            // кавычки
+
 
             var typographics = [
                 [/\([cс]\)/gi, '©'],
