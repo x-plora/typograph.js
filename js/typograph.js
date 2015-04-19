@@ -29,6 +29,7 @@ if (window.jQuery) {
                 inner = text.substring(beginPos, endPos + 1);
                 for (var i = 0; i < 32; ++i) {
                     inner = inner.replace(/«([^«»]*)«([^»]*)»/g, "«$1„$2“");
+                    inner = inner.replace(/„([^„“]*)„([^“]*)“/g, "„$1¬$2‘");
                 }
                 return begin + inner + end;
             };
@@ -94,6 +95,7 @@ if (window.jQuery) {
                 [/(\d{5,})\s([a-zA-Zа-яАЯёЁ]+)/g, '$1&nbsp;$2'],
                 [/\.{3,4}/g, '…'],
                 [/(\d+)\s+([a-zA-Zа-яА-ЯёЁ])/g, '$1&nbsp;$2'],
+                [/¬/g, ','] //восттанавливаем нижнюю одинарную лапку
             ];
 
             for (var i = 0, len = typographics.length; i < len; ++i) {
