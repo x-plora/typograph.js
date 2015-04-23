@@ -7,16 +7,29 @@
 if (window.jQuery) {
     $(document).ready(function () {
         $('.do_typography').each(function () {
-            var text = $(this).html();
-
-            text = text.replace(/\s[a-zA-Zа-яА-ЯёЁ]*[A-ZА-ЯЁ]{2,}[a-zA-Zа-яА-ЯёЁ]*[\s\.,:;]/g, function (needle, offset, str) {
-                return needle.replace(/[A-ZА-ЯЁ]+/g, '<span class="typograph_capitel">$&</span>');
-            });
 
             // кавычки
-            text = text.replace(/(^|\n|\s|—|-|\()"/g, "$1«").replace(/"($|\n|\s|—|-|\.|,|!|\?|:|;|\))/g, "»$1").replace(/«\)/g, "»)").replace(/«( ?)/g, "«").replace(/( ?)»/g, "»").replace(/>"/g, ">«").replace(/"</g, "»<").replace(/«""/g, "«««").replace(/«"/g, "««").replace(/""»/g, "»»»").replace(/"»/g, "»»").replace(/("{2}|"»)/g, "»»").replace(/$"/g, "«").replace(/([A-Za-zа-яА-ЯёЁ])'/g, "$1’");
-            text = text.replace(/[a-zA-ZА-яёЁ]"-/g, "$1»-").replace(/-"[a-zA-ZА-яёЁ]/g, "-«$1");
-            text = text.replace(/(^[^«»]*)"/g, "$1«").replace(/"([^«»]*$)/g, "»$1").replace(/«([^«»]*)"/g, "«$1»").replace(/"([^«»]*)»/g, "«$1»");
+
+            $(this).each(function () {
+                htmlreplace($(this));
+                function htmlreplace(element) {
+                    if (!element) element = document.body;
+                    var nodes = $(element).contents().each(function () {
+                        if (this.nodeType == Node.TEXT_NODE) {
+                            var result = $(this).text()
+                                .replace(/(^|\n|\s|—|-|\()"/g, "$1«").replace(/"($|\n|\s|—|-|\.|,|!|\?|:|;|\))/g, "»$1").replace(/«\)/g, "»)").replace(/«( ?)/g, "«").replace(/( ?)»/g, "»").replace(/>"/g, ">«").replace(/"</g, "»<").replace(/«""/g, "«««").replace(/«"/g, "««").replace(/""»/g, "»»»").replace(/"»/g, "»»").replace(/("{2}|"»)/g, "»»").replace(/$"/g, "«").replace(/([A-Za-zа-яА-ЯёЁ])'/g, "$1’")
+                                .replace(/[a-zA-ZА-яёЁ]"-/g, "$1»-").replace(/-"[a-zA-ZА-яёЁ]/g, "-«$1")
+                                .replace(/(^[^«»]*)"/g, "$1«").replace(/"([^«»]*$)/g, "»$1").replace(/«([^«»]*)"/g, "«$1»").replace(/"([^«»]*)»/g, "«$1»")
+                            $(this).after(result).remove();
+                        } else {
+                            htmlreplace(this);
+                        }
+
+                    });
+                }
+            });
+
+            var text = $(this).html();
 
             function replaceQuotes(beginPos, endPos) {
                 var begin = "", inner, end = "";
@@ -56,6 +69,10 @@ if (window.jQuery) {
             }
             // кавычки
 
+            text = text.replace(/\s[a-zA-Zа-яА-ЯёЁ]*[A-ZА-ЯЁ]{2,}[a-zA-Zа-яА-ЯёЁ]*[\s\.,:;]/g, function (needle, offset, str) {
+                return needle.replace(/[A-ZА-ЯЁ]+/g, '<span class="typograph_capitel">$&</span>');
+            });
+
 
             var typographics = [
                 [/\([cс]\)/gi, '©'],
@@ -88,23 +105,38 @@ if (window.jQuery) {
                 [/(\d+)–(\d+)/g, '$1—$2'],
                 [/(\d+)x(\d+)/g, '$1×$2'],
                 [/(\d+)\^(\d+)/g, '$1<sup><small>$2</small></sup>'],
-                [/([a-zA-Zа-яА-ЯёЁ]+)-([a-zA-Zа-яА-ЯёЁ]+)/g, '<span class="typograph_nobreak">$1—$2</span>'],
-                [/([a-zA-Zа-яА-ЯёЁ]+)–([a-zA-Zа-яА-ЯёЁ]+)/g, '<span class="typograph_nobreak">$1—$2</span>'],
-                [/(\s|\(|>)(и|а|но|да|или|либо|в|из|от|до|к|перед|у|за|с)\s([a-zA-Zа-яА-ЯёЁ0-9]+|<\w+)/gi, '$1$2&nbsp;$3'],
+                [/([a-zA-Zа-яА-ЯёЁ]+)-([a-zA-Zа-яА-ЯёЁ]+)/g, '<span class="typograph_nobreak">$1–$2</span>',true],
+                [/([a-zA-Zа-яА-ЯёЁ]+)–([a-zA-Zа-яА-ЯёЁ]+)/g, '<span class="typograph_nobreak">$1–$2</span>',true],
+                [/(\s|\(|>|&nbsp;)(и|а|но|да|или|либо|в|из|от|до|к|перед|у|за|с|не|по|о)\s([a-zA-Zа-яА-ЯёЁ0-9]+|<\w+)/gi, '$1$2&nbsp;$3'],
                 [/([A-ZА-ЯЁ]{1}[a-zа-яё]?\.)\s+/g, '$1<span class="typograph_halfspace">&nbsp;</span>'],
-                [/(\d{5,})\s([a-zA-Zа-яАЯёЁ]+)/g, '$1&nbsp;$2'],
+                [/(\d{5,})\s+([a-zA-Zа-яАЯёЁ$]+)/g, '$1&nbsp;$2'],
                 [/\.{3,4}/g, '…'],
                 [/(\d+)\s+([a-zA-Zа-яА-ЯёЁ])/g, '$1&nbsp;$2'],
-                [/¬/g, ','] //восттанавливаем нижнюю одинарную лапку
+                [/(№)\s+(\d+)/g, '$1&nbsp;$2'],
+                [/¬/g, ','], //восттанавливаем нижнюю одинарную лапку
+                [/[…]+[a-zA-Zа-яА-ЯёЁ]+/g, '<span class="typograph_nobreak">$&</span>', true],
+                [/\s+,/g, '<span class="typograph_squot"> </span><span class="typograph_hquot">,</span>'],
             ];
 
             for (var i = 0, len = typographics.length; i < len; ++i) {
-                text = text.replace(typographics[i][0], typographics[i][1]);
+                do {
+                    var oText = text;
+                    var done = false;
+                    text = text.replace(typographics[i][0], typographics[i][1]);
+                    done = oText == text;
+                    if (typographics[i][2] === true) {
+                        done = true;
+                    }
+                } while (!done);
             }
 
-            text = text.replace(/\d{5,}/gi, function (needle, offset, str) {
-                return '<span class="typograph_nobreak">' + needle.toString().replace(/\B(?=(\d{3})+(?!\d))/gi, '<span class="typograph_thsep"></span>') + '</span>';
-            });
+            do {
+                var oText = text;
+                text = text.replace(/\d{5,}/gi, function (needle, offset, str) {
+                    return '<span class="typograph_nobreak">' + needle.toString().replace(/\B(?=(\d{3})+(?!\d))/gi, '<span class="typograph_thsep"></span>') + '</span>';
+                });
+            } while (oText != text);
+
             $(this).html(text);
 
         });
