@@ -70,7 +70,7 @@ if (window.jQuery) {
             // кавычки
 
             text = text.replace(/\s[a-zA-Zа-яА-ЯёЁ]*[A-ZА-ЯЁ]{2,}[a-zA-Zа-яА-ЯёЁ]*[\s\.,:;]/g, function (needle, offset, str) {
-                return needle.replace(/[A-ZА-ЯЁ]+/g, '<span class="typograph_capitel">$&</span>');
+                return '<span class="typograph_capitel_spacing">'+needle.replace(/[A-ZА-ЯЁ]+/g, '<span class="typograph_capitel">$&</span>')+'</span';
             });
 
 
@@ -102,10 +102,12 @@ if (window.jQuery) {
                 [/\s+\*/g, '<span class="typograph_sasterisk"> </span><span class="typograph_hasterisk">*</span>'],
                 [/>\s+\+/g, '><span class="typograph_hplus">+</span>'],
                 [/\s+\+/g, '<span class="typograph_splus"> </span><span class="typograph_hplus">+</span>'],
-                [/\s+-\s+/g, ' — '],
-                [/\s+–\s+/g, ' — '],
-                [/(\d+)-(\d+)/g, '<span class="typograph_nobreak">$1—$2</span>'],
-                [/(\d+)–(\d+)/g, '<span class="typograph_nobreak">$1—$2</span>'],
+                [/>\s*-\s+/g, '>— '],
+                [/\s+-\s+/g, '&nbsp;— '],
+                [/>\s*–\s+/g, '>— '],
+                [/\s+–\s+/g, '&nbsp;— '],
+                [/(\s)(\d+)-(\d+)([\s\.,:])/g, '$1<span class="typograph_nobreak">$2—$3</span>$4'],
+                [/(\s)(\d+)–(\d+)([\s\.,:])/g, '$1<span class="typograph_nobreak">$2—$3</span>$4'],
                 [/(\d+)x(\d+)/g, '$1×$2'],
                 [/(\d+)\^(\d+)/g, '$1<sup><small>$2</small></sup>'],
                 [/([a-zA-Zа-яА-ЯёЁ]+)-([a-zA-Zа-яА-ЯёЁ]+)/g, '<span class="typograph_nobreak">$1-$2</span>',true],

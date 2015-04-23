@@ -56,6 +56,9 @@ span.typograph_hasterisk {
 
 span.typograph_capitel {
     font-size: 0.8em;
+}
+
+span.typograph_capitel_spacing {
     letter-spacing: 0.09em;
 }
 
