@@ -77,7 +77,7 @@ if (window.jQuery) {
             var typographics = [
                 [/\([cс]\)/gi, '©'],
                 [/\([r]\)/gi, '®'],
-                [/®\s+/g, '©&nbsp;'],
+                [/©\s+/g, '©&nbsp;'],
                 [/\s+®/g, '&nbsp;®'],
                 [/\s+\./g, '. '],
                 [/\s+,/g, ', '],
@@ -96,18 +96,21 @@ if (window.jQuery) {
                 [/\s+"/g, '<span class="typograph_sdquot"> </span><span class="typograph_hdquot">"</span>'],
                 [/>\s+(«|&laquo;)/g, '><span class="typograph_hlaquot">$1</span>'],
                 [/\s+(«|&laquo;)/g, '<span class="typograph_slaquot"> </span><span class="typograph_hlaquot">$1</span>'],
+                [/>\s+„/g, '><span class="typograph_hlquot">„</span>'],
                 [/\s+„/g, '<span class="typograph_slquot"> </span><span class="typograph_hlquot">„</span>'],
+                [/>\s+\*/g, '><span class="typograph_hasterisk">*</span>'],
                 [/\s+\*/g, '<span class="typograph_sasterisk"> </span><span class="typograph_hasterisk">*</span>'],
+                [/>\s+\+/g, '><span class="typograph_hplus">+</span>'],
                 [/\s+\+/g, '<span class="typograph_splus"> </span><span class="typograph_hplus">+</span>'],
                 [/\s+-\s+/g, ' — '],
                 [/\s+–\s+/g, ' — '],
-                [/(\d+)-(\d+)/g, '$1—$2'],
-                [/(\d+)–(\d+)/g, '$1—$2'],
+                [/(\d+)-(\d+)/g, '<span class="typograph_nobreak">$1—$2</span>'],
+                [/(\d+)–(\d+)/g, '<span class="typograph_nobreak">$1—$2</span>'],
                 [/(\d+)x(\d+)/g, '$1×$2'],
                 [/(\d+)\^(\d+)/g, '$1<sup><small>$2</small></sup>'],
-                [/([a-zA-Zа-яА-ЯёЁ]+)-([a-zA-Zа-яА-ЯёЁ]+)/g, '<span class="typograph_nobreak">$1–$2</span>',true],
+                [/([a-zA-Zа-яА-ЯёЁ]+)-([a-zA-Zа-яА-ЯёЁ]+)/g, '<span class="typograph_nobreak">$1-$2</span>',true],
                 [/([a-zA-Zа-яА-ЯёЁ]+)–([a-zA-Zа-яА-ЯёЁ]+)/g, '<span class="typograph_nobreak">$1–$2</span>',true],
-                [/(\s|\(|>|&nbsp;)(и|а|но|да|или|либо|в|из|от|до|к|перед|у|за|с|не|по|о)\s([a-zA-Zа-яА-ЯёЁ0-9]+|<\w+)/gi, '$1$2&nbsp;$3'],
+                [/(\s|\(|>|&nbsp;)(и|а|но|да|или|либо|в|из|от|до|к|перед|у|за|с|не|по|о|на)\s([a-zA-Zа-яА-ЯёЁ0-9]+|<\w+)/gi, '$1$2&nbsp;$3'],
                 [/([A-ZА-ЯЁ]{1}[a-zа-яё]?\.)\s+/g, '$1<span class="typograph_halfspace">&nbsp;</span>'],
                 [/(\d{5,})\s+([a-zA-Zа-яАЯёЁ$]+)/g, '$1&nbsp;$2'],
                 [/\.{3,4}/g, '…'],
@@ -116,6 +119,7 @@ if (window.jQuery) {
                 [/¬/g, ','], //восттанавливаем нижнюю одинарную лапку
                 [/[…]+[a-zA-Zа-яА-ЯёЁ]+/g, '<span class="typograph_nobreak">$&</span>', true],
                 [/\s+,/g, '<span class="typograph_squot"> </span><span class="typograph_hquot">,</span>'],
+                [/\d+-[a-zA-Zа-яА-ЯёЁ]+/gi,'<span class="typograph_nobreak">$&</span>',true]
             ];
 
             for (var i = 0, len = typographics.length; i < len; ++i) {
